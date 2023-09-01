@@ -1,0 +1,9 @@
+modLoader = "javafml"
+loaderVersion = "[43,)"
+license = "GNU AGPL 3.0"
+[[mods]]
+modId = "edpcompat"
+version = "${file.jarVersion}"
+displayName = "EDParaglidersCompat"
+authors = "Tapio"
+description = ""

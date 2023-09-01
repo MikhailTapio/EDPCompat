@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.plr.edpcompat.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "refmap": "edpcompat.refmap.json",
+  "mixins": [
+    "MixinDodgeHandler"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
