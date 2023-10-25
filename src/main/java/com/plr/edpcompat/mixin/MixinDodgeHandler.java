@@ -18,11 +18,12 @@ public abstract class MixinDodgeHandler {
     @Redirect(method = "handleDodge", at = @At(value = "INVOKE", target = "Lcom/elenai/feathers/api/FeathersHelper;spendFeathers(I)Z", remap = false), remap = false)
     private static boolean redirect$handleDodge(int amount) {
         final Player player = Objects.requireNonNull(Minecraft.getInstance().player);
-        final AtomicBoolean success = new AtomicBoolean(false);
+        final AtomicBoolean successRef = new AtomicBoolean(false);
         final int cost = amount * 300;
         player.getCapability(Caps.playerMovement)
-                .ifPresent(s -> success.set(s.getStamina() >= cost && s.takeStamina(cost, false, false) == cost));
-        NetworkHandler.INSTANCE.sendToServer(new EDPDodgeMessage(cost));
-        return success.get();
+                .ifPresent(s -> successRef.set(s.getStamina() >= cost && s.takeStamina(cost, false, false) == cost));
+        final boolean success = successRef.get();
+        if (success) NetworkHandler.INSTANCE.sendToServer(new EDPDodgeMessage(cost));
+        return success;
     }
 }
