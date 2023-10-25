@@ -3,7 +3,7 @@ package com.plr.edpcompat.network.msg;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkEvent;
-import tictim.paraglider.capabilities.Caps;
+import tictim.paraglider.api.stamina.Stamina;
 
 import java.util.function.Supplier;
 
@@ -27,7 +27,7 @@ public class EDPDodgeMessage {
         ctx.enqueueWork(() -> {
             final ServerPlayer player = ctx.getSender();
             if (player == null) return;
-            player.getCapability(Caps.playerMovement).ifPresent(s -> s.takeStamina(cost, false, false));
+            Stamina.get(player).takeStamina(cost, false, false);
         });
         ctx.setPacketHandled(true);
     }
