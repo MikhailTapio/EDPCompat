@@ -20,7 +20,7 @@ public abstract class MixinDodgeHandler {
         final int cost = amount * 300;
         final Stamina stamina = Stamina.get(player);
         final boolean success = stamina.stamina() >= cost && stamina.takeStamina(cost, false, false) == cost;
-        NetworkHandler.INSTANCE.sendToServer(new EDPDodgeMessage(cost));
+        if (success) NetworkHandler.INSTANCE.sendToServer(new EDPDodgeMessage(cost));
         return success;
     }
 }
